@@ -17,6 +17,400 @@
 				</h1>
 			</header>
 		</div>
+
+		<div class="row">
+			<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+				<p>
+					A lo hora de hacer métrica a un proyecto de software, hay diferentes formas, pero en esta página vamos a hacer métrica basada en funciones (<abbr title="Punto de función">PF</abbr>).
+				</p>
+
+				<p>
+					Para esto, debemos tener en cuenta algunas variables:
+				</p>
+
+				<ul>
+					<li>Número de entradas externas (<abbr title="Entradas externas">EE</abbr>)</li>
+					<li>Número de salidas externas (<abbr title="Salidas externas">SE</abbr>)</li>
+					<li>Número de consultas externas (<abbr title="Consultas externas">CE</abbr>)</li>
+					<li>Número de archivos lógicos internos (<abbr title="Archivos lógicos internos">ALI</abbr>)</li>
+					<li>Número de archivo de interfaz externo (<abbr title="Archivo de interfaz externo">AIE</abbr>)</li>
+				</ul>
+			</div>
+
+			<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+				<p>
+					Vamos a calcular:
+				</p>
+
+				<form class="table-responsive">
+					<table class="table table-bordered table-sm">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">Variable</th>
+								<th scope="col">Conteo</th>
+								<th scope="col">Simple</th>
+								<th scope="col">Promedio</th>
+								<th scope="col">Complejo</th>
+								<th scope="col">Resultado</th>
+							</tr>
+						</thead>
+						<tbody class="table-striped">
+							<tr>
+								<td scope="row" class="text-center">EE</td>
+								<td><input type="number" name="ee_conteo" class="form-control" value="1"></td>
+								<td><input type="radio" name="ee_valor" value="1" id="ee_siemple" class="form-control"></td>
+								<td><input type="radio" name="ee_valor" value="2" id="ee_promedio" class="form-control"></td>
+								<td><input type="radio" name="ee_valor" value="3" id="ee_complejo" class="form-control"></td>
+								<td><span id="ee_resultado"></span></td>
+							</tr>
+							<tr>
+								<td scope="row" class="text-center">SE</td>
+								<td><input type="number" name="se_conteo" class="form-control" value="1"></td>
+								<td><input type="radio" name="se_valor" value="1" id="se_siemple" class="form-control"></td>
+								<td><input type="radio" name="se_valor" value="2" id="se_promedio" class="form-control"></td>
+								<td><input type="radio" name="se_valor" value="3" id="se_complejo" class="form-control"></td>
+								<td><span id="se_resultado"></span></td>
+							</tr>
+							<tr>
+								<td scope="row" class="text-center">CE</td>
+								<td><input type="number" name="ce_conteo" class="form-control" value="1"></td>
+								<td><input type="radio" name="ce_valor" value="1" id="ce_siemple" class="form-control"></td>
+								<td><input type="radio" name="ce_valor" value="2" id="ce_promedio" class="form-control"></td>
+								<td><input type="radio" name="ce_valor" value="3" id="ce_complejo" class="form-control"></td>
+								<td><span id="ce_resultado"></span></td>
+							</tr>
+							<tr>
+								<td scope="row" class="text-center">ALI</td>
+								<td><input type="number" name="ce_conteo" class="form-control" value="1"></td>
+								<td><input type="radio" name="ali_valor" value="1" id="ali_siemple" class="form-control"></td>
+								<td><input type="radio" name="ali_valor" value="2" id="ali_promedio" class="form-control"></td>
+								<td><input type="radio" name="ali_valor" value="3" id="ali_complejo" class="form-control"></td>
+								<td><span id="ali_resultado"></span></td>
+							</tr>
+							<tr>
+								<td scope="row" class="text-center">AIE</td>
+								<td><input type="number" name="ce_conteo" class="form-control" value="1"></td>
+								<td><input type="radio" name="aie_valor" value="1" id="aie_siemple" class="form-control"></td>
+								<td><input type="radio" name="aie_valor" value="2" id="aie_promedio" class="form-control"></td>
+								<td><input type="radio" name="aie_valor" value="3" id="aie_complejo" class="form-control"></td>
+								<td><span id="aie_resultado"></span></td>
+							</tr>
+							<tr>
+								<td cope="row" class="text-center" colspan="5">Resultado</td>
+								<td><span id="pf_resultado"></span></td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+
+			<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+				<p>
+					Datos necesarios para aplicar <a href="https://es.wikipedia.org/wiki/COCOMO">COCOMO</a>:
+				</p>
+
+				<form class="table-responsive">
+					<table class="table table-bordered table-sm">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col" rowspan="2">Atributos</th>
+								<th scope="col" colspan="7">Valor</th>
+							</tr>
+							<tr>
+								<th scope="col">Bajito</th>
+								<th scope="col">Bajo</th>
+								<th scope="col">Nominal</th>
+								<th scope="col">Alto</th>
+								<th scope="col">Altote</th>
+								<th scope="col">Altotote</th>
+								<th scope="col">Resultado</th>
+							</tr>
+						</thead>
+						<tbody class="table-striped">
+							<!-- Primer bloque -->
+							<tr><td colspan="8" class="text-center bg-dark text-light">Atributos de software</td></tr>
+							<tr>
+								<td scope="row">Fiabilidad (fbd)</td>
+								<td><input type="radio" name="fbd_valor" value="0.75" id="fbd_a" class="form-control"></td>
+								<td><input type="radio" name="fbd_valor" value="0.88" id="fbd_b" class="form-control"></td>
+								<td><input type="radio" name="fbd_valor" value="1.00" id="fbd_c" class="form-control"></td>
+								<td><input type="radio" name="fbd_valor" value="1.15" id="fbd_d" class="form-control"></td>
+								<td><input type="radio" name="fbd_valor" value="1.40" id="fbd_e" class="form-control"></td>
+								<td><input type="radio" name="fbd_valor" value="1.40" id="fbd_f" class="form-control"></td> <!-- vacio -->
+								<td><span id="fbd_resultado"></span></td>
+							</tr>
+							<tr>
+								<td scope="row">Tamaño de base de datos (tbd)</td>
+								<td><input type="radio" name="tbd_valor" value="0.94" id="tbd_a" class="form-control"></td> <!-- vacio -->
+								<td><input type="radio" name="tbd_valor" value="0.94" id="tbd_b" class="form-control"></td>
+								<td><input type="radio" name="tbd_valor" value="1.00" id="tbd_c" class="form-control"></td>
+								<td><input type="radio" name="tbd_valor" value="1.08" id="tbd_d" class="form-control"></td>
+								<td><input type="radio" name="tbd_valor" value="1.16" id="tbd_e" class="form-control"></td>
+								<td><input type="radio" name="tbd_valor" value="1.16" id="tbd_f" class="form-control"></td> <!-- vacio -->
+								<td><span id="tbd_resultado"></span></td>
+							</tr>
+							<tr>
+								<td scope="row">Complejidad (cpj)</td>
+								<td><input type="radio" name="cpj_valor" value="0.70" id="cpj_a" class="form-control"></td>
+								<td><input type="radio" name="cpj_valor" value="0.85" id="cpj_b" class="form-control"></td>
+								<td><input type="radio" name="cpj_valor" value="1.00" id="cpj_c" class="form-control"></td>
+								<td><input type="radio" name="cpj_valor" value="1.15" id="cpj_d" class="form-control"></td>
+								<td><input type="radio" name="cpj_valor" value="1.30" id="cpj_e" class="form-control"></td>
+								<td><input type="radio" name="cpj_valor" value="1.65" id="cpj_f" class="form-control"></td>
+								<td><span id="cpj_resultado"></span></td>
+							</tr>
+
+							<!-- segundo bloque -->
+							<tr><td colspan="8" class="text-center bg-dark text-light">Atributos de hardware</td></tr>
+							<tr>
+								<td scope="row">Restricciones de tiempo de ejecución (rte)</td>
+								<td><input type="radio" name="rte_valor" value="1.00" id="rte_a" class="form-control"></td> <!-- vacio -->
+								<td><input type="radio" name="rte_valor" value="1.00" id="rte_b" class="form-control"></td> <!-- vacio -->
+								<td><input type="radio" name="rte_valor" value="1.00" id="rte_c" class="form-control"></td>
+								<td><input type="radio" name="rte_valor" value="1.11" id="rte_d" class="form-control"></td>
+								<td><input type="radio" name="rte_valor" value="1.30" id="rte_e" class="form-control"></td>
+								<td><input type="radio" name="rte_valor" value="1.66" id="rte_f" class="form-control"></td>
+								<td><span id="rte_resultado"></span></td>
+							</tr>
+							<tr>
+								<td scope="row">Restricciones de memoria virtual (rmv)</td>
+								<td><input type="radio" name="rmv_valor" value="1.00" id="rmv_a" class="form-control"></td> <!-- vacio -->
+								<td><input type="radio" name="rmv_valor" value="1.00" id="rmv_b" class="form-control"></td> <!-- vacio -->
+								<td><input type="radio" name="rmv_valor" value="1.00" id="rmv_c" class="form-control"></td>
+								<td><input type="radio" name="rmv_valor" value="1.06" id="rmv_d" class="form-control"></td>
+								<td><input type="radio" name="rmv_valor" value="1.21" id="rmv_e" class="form-control"></td>
+								<td><input type="radio" name="rmv_valor" value="1.56" id="rmv_f" class="form-control"></td>
+								<td><span id="rmv_resultado"></span></td>
+							</tr>
+							<tr>
+								<td scope="row">Volatilidad de la máquina virtual (vmv)</td>
+								<td><input type="radio" name="vmv_valor" value="0.87" id="vmv_a" class="form-control"></td> <!-- vacio -->
+								<td><input type="radio" name="vmv_valor" value="0.87" id="vmv_b" class="form-control"></td>
+								<td><input type="radio" name="vmv_valor" value="1.00" id="vmv_c" class="form-control"></td>
+								<td><input type="radio" name="vmv_valor" value="1.15" id="vmv_d" class="form-control"></td>
+								<td><input type="radio" name="vmv_valor" value="1.30" id="vmv_e" class="form-control"></td>
+								<td><input type="radio" name="vmv_valor" value="1.30" id="vmv_f" class="form-control"></td> <!-- vacio -->
+								<td><span id="vmv_resultado"></span></td>
+							</tr>
+							<tr>
+								<td scope="row">Tiempo de respuesta (trp)</td>
+								<td><input type="radio" name="trp_valor" value="0.87" id="trp_a" class="form-control"></td> <!-- vacio -->
+								<td><input type="radio" name="trp_valor" value="0.87" id="trp_b" class="form-control"></td>
+								<td><input type="radio" name="trp_valor" value="1.00" id="trp_c" class="form-control"></td>
+								<td><input type="radio" name="trp_valor" value="1.07" id="trp_d" class="form-control"></td>
+								<td><input type="radio" name="trp_valor" value="1.15" id="trp_e" class="form-control"></td>
+								<td><input type="radio" name="trp_valor" value="1.15" id="trp_f" class="form-control"></td> <!-- vacio -->
+								<td><span id="trp_resultado"></span></td>
+							</tr>
+
+							<!-- tercer bloque -->
+							<tr><td colspan="8" class="text-center bg-dark text-light">Atributos de personal</td></tr>
+							<tr>
+								<td scope="row">Capacidad de análisis (qit)</td>
+								<td><input type="radio" name="qit_valor" value="1.46" id="qit_a" class="form-control"></td>
+								<td><input type="radio" name="qit_valor" value="1.19" id="qit_b" class="form-control"></td>
+								<td><input type="radio" name="qit_valor" value="1.00" id="qit_c" class="form-control"></td>
+								<td><input type="radio" name="qit_valor" value="0.86" id="qit_d" class="form-control"></td>
+								<td><input type="radio" name="qit_valor" value="0.71" id="qit_e" class="form-control"></td>
+								<td><input type="radio" name="qit_valor" value="0.71" id="qit_f" class="form-control"></td> <!-- vacio -->
+								<td><span id="qit_resultado"></span></td>
+							</tr>
+							<tr>
+								<td scope="row">Experiencia en la aplicación (xpa)</td>
+								<td><input type="radio" name="xpa_valor" value="1.29" id="xpa_a" class="form-control"></td>
+								<td><input type="radio" name="xpa_valor" value="1.13" id="xpa_b" class="form-control"></td>
+								<td><input type="radio" name="xpa_valor" value="1.00" id="xpa_c" class="form-control"></td>
+								<td><input type="radio" name="xpa_valor" value="0.91" id="xpa_d" class="form-control"></td>
+								<td><input type="radio" name="xpa_valor" value="0.82" id="xpa_e" class="form-control"></td>
+								<td><input type="radio" name="xpa_valor" value="0.82" id="xpa_f" class="form-control"></td> <!-- vacio -->
+								<td><span id="xpa_resultado"></span></td>
+							</tr>
+							<tr>
+								<td scope="row">Calidad de programadores (ctp)</td>
+								<td><input type="radio" name="ctp_valor" value="1.42" id="ctp_a" class="form-control"></td>
+								<td><input type="radio" name="ctp_valor" value="1.17" id="ctp_b" class="form-control"></td>
+								<td><input type="radio" name="ctp_valor" value="1.00" id="ctp_c" class="form-control"></td>
+								<td><input type="radio" name="ctp_valor" value="0.86" id="ctp_d" class="form-control"></td>
+								<td><input type="radio" name="ctp_valor" value="0.70" id="ctp_e" class="form-control"></td>
+								<td><input type="radio" name="ctp_valor" value="0.70" id="ctp_f" class="form-control"></td> <!-- vacio -->
+								<td><span id="ctp_resultado"></span></td>
+							</tr>
+							<tr>
+								<td scope="row">Experiencia en la máquina virtual (xpv)</td>
+								<td><input type="radio" name="xpv_valor" value="1.21" id="xpv_a" class="form-control"></td>
+								<td><input type="radio" name="xpv_valor" value="1.10" id="xpv_b" class="form-control"></td>
+								<td><input type="radio" name="xpv_valor" value="1.00" id="xpv_c" class="form-control"></td>
+								<td><input type="radio" name="xpv_valor" value="0.90" id="xpv_d" class="form-control"></td>
+								<td><input type="radio" name="xpv_valor" value="0.90" id="xpv_e" class="form-control"></td> <!-- vacio -->
+								<td><input type="radio" name="xpv_valor" value="0.90" id="xpv_f" class="form-control"></td> <!-- vacio -->
+								<td><span id="xpv_resultado"></span></td>
+							</tr>
+							<tr>
+								<td scope="row">Experiencia en el lenguaje (xpl)</td>
+								<td><input type="radio" name="xpl_valor" value="1.14" id="xpl_a" class="form-control"></td>
+								<td><input type="radio" name="xpl_valor" value="1.07" id="xpl_b" class="form-control"></td>
+								<td><input type="radio" name="xpl_valor" value="1.00" id="xpl_c" class="form-control"></td>
+								<td><input type="radio" name="xpl_valor" value="0.95" id="xpl_d" class="form-control"></td>
+								<td><input type="radio" name="xpl_valor" value="0.95" id="xpl_e" class="form-control"></td> <!-- vacio -->
+								<td><input type="radio" name="xpl_valor" value="0.95" id="xpl_f" class="form-control"></td> <!-- vacio -->
+								<td><span id="xpl_resultado"></span></td>
+							</tr>
+
+							<!-- cuarto bloque -->
+							<tr><td colspan="8" class="text-center bg-dark text-light">Atributos del proyecto</td></tr>
+							<tr>
+								<td scope="row">Técnicas actualizadas de programación (tap)</td>
+								<td><input type="radio" name="tap_valor" value="1.24" id="tap_a" class="form-control"></td>
+								<td><input type="radio" name="tap_valor" value="1.10" id="tap_b" class="form-control"></td>
+								<td><input type="radio" name="tap_valor" value="1.00" id="tap_c" class="form-control"></td>
+								<td><input type="radio" name="tap_valor" value="0.91" id="tap_d" class="form-control"></td>
+								<td><input type="radio" name="tap_valor" value="0.82" id="tap_e" class="form-control"></td>
+								<td><input type="radio" name="tap_valor" value="0.82" id="tap_f" class="form-control"></td> <!-- vacio -->
+								<td><span id="tap_resultado"></span></td>
+							</tr>
+							<tr>
+								<td scope="row">Utilización de herramientas de software (uhs)</td>
+								<td><input type="radio" name="uhs_valor" value="1.24" id="uhs_a" class="form-control"></td>
+								<td><input type="radio" name="uhs_valor" value="1.10" id="uhs_b" class="form-control"></td>
+								<td><input type="radio" name="uhs_valor" value="1.00" id="uhs_c" class="form-control"></td>
+								<td><input type="radio" name="uhs_valor" value="0.91" id="uhs_d" class="form-control"></td>
+								<td><input type="radio" name="uhs_valor" value="0.83" id="uhs_e" class="form-control"></td>
+								<td><input type="radio" name="uhs_valor" value="0.83" id="uhs_f" class="form-control"></td> <!-- vacio -->
+								<td><span id="uhs_resultado"></span></td>
+							</tr>
+							<tr>
+								<td scope="row">Restricciones de tiempo de desarrollo (rtd)</td>
+								<td><input type="radio" name="rtd_valor" value="1.22" id="rtd_a" class="form-control"></td>
+								<td><input type="radio" name="rtd_valor" value="1.08" id="rtd_b" class="form-control"></td>
+								<td><input type="radio" name="rtd_valor" value="1.00" id="rtd_c" class="form-control"></td>
+								<td><input type="radio" name="rtd_valor" value="1.04" id="rtd_d" class="form-control"></td>
+								<td><input type="radio" name="rtd_valor" value="1.10" id="rtd_e" class="form-control"></td>
+								<td><input type="radio" name="rtd_valor" value="1.10" id="rtd_f" class="form-control"></td> <!-- vacio -->
+								<td><span id="rtd_resultado"></span></td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+
+			<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+				<p>
+					Resultados:
+				</p>
+
+				<form class="table-responsive">
+					<table class="table table-bordered table-sm">
+						<thead class="thead-dark">
+							<tr><th colspan="7" scope="col" class="text-center">Resultados de modelos</th></tr>
+							<tr>
+								<th scope="col" rowspan="2">Valor</th>
+								<th colspan="2" scope="col">Modelo básico</th>
+								<th colspan="2" scope="col">Modelo intermedio</th>
+								<th colspan="2" scope="col">Modelo empotrado</th>
+							</tr>
+							<tr>
+								<th scope="col">modo</th>
+								<th scope="col">valor</th>
+								<th scope="col">modo</th>
+								<th scope="col">valor</th>
+								<th scope="col">modo</th>
+								<th scope="col">valor</th>
+							</tr>
+						</thead>
+
+						<tbody class="table-striped">
+							<!--
+								[m]odo [b]asico, [m]odo [i]ntermedio, [m]odo [a]vanzado
+								+
+								mm = esfuerzo
+								ms = meses
+								ps = persona
+								+
+								[m]odo [o]rgánico, [m]odo [s]emi-orgánico, [m]odo [d]etallado
+							-->
+							<!-- esfuerzo -->
+							<tr>
+								<td scope="row" rowspan="3">Esfuerzo persona-mes</td>
+								<td class="bg-dark text-light">modo orgánico</td>
+								<td><span id="mb_mm_mo"></span></td>
+								<td class="bg-dark text-light">modo orgánico</td>
+								<td><span id="mi_mm_mo"></span></td>
+								<td class="bg-dark text-light">modo orgánico</td>
+								<td><span id="ma_mm_mo"></span></td>
+							</tr>
+							<tr>
+								<td class="bg-dark text-light">modo intermedio</td>
+								<td><span id="mb_mm_ms"></span></td>
+								<td class="bg-dark text-light">modo intermedio</td>
+								<td><span id="mi_mm_ms"></span></td>
+								<td class="bg-dark text-light">modo intermedio</td>
+								<td><span id="ma_mm_ms"></span></td>
+							</tr>
+							<tr>
+								<td class="bg-dark text-light">modo empotrado</td>
+								<td><span id="mb_mm_md"></span></td>
+								<td class="bg-dark text-light">modo empotrado</td>
+								<td><span id="mi_mm_md"></span></td>
+								<td class="bg-dark text-light">modo empotrado</td>
+								<td><span id="ma_mm_md"></span></td>
+							</tr>
+							<!-- tiempo -->
+							<tr>
+								<td scope="row" rowspan="3">Esfuerzo persona-mes</td>
+								<td class="bg-dark text-light">modo orgánico</td>
+								<td><span id="mb_ms_mo"></span></td>
+								<td class="bg-dark text-light">modo orgánico</td>
+								<td><span id="mi_ms_mo"></span></td>
+								<td class="bg-dark text-light">modo orgánico</td>
+								<td><span id="ma_ms_mo"></span></td>
+							</tr>
+							<tr>
+								<td class="bg-dark text-light">modo intermedio</td>
+								<td><span id="mb_ms_ms"></span></td>
+								<td class="bg-dark text-light">modo intermedio</td>
+								<td><span id="mi_ms_ms"></span></td>
+								<td class="bg-dark text-light">modo intermedio</td>
+								<td><span id="ma_ms_ms"></span></td>
+							</tr>
+							<tr>
+								<td class="bg-dark text-light">modo empotrado</td>
+								<td><span id="mb_ms_md"></span></td>
+								<td class="bg-dark text-light">modo empotrado</td>
+								<td><span id="mi_ms_md"></span></td>
+								<td class="bg-dark text-light">modo empotrado</td>
+								<td><span id="ma_ms_md"></span></td>
+							</tr>
+							<!-- personal -->
+							<tr>
+								<td scope="row" rowspan="3">Esfuerzo persona-mes</td>
+								<td class="bg-dark text-light">modo orgánico</td>
+								<td><span id="mb_ps_mo"></span></td>
+								<td class="bg-dark text-light">modo orgánico</td>
+								<td><span id="mi_ps_mo"></span></td>
+								<td class="bg-dark text-light">modo orgánico</td>
+								<td><span id="ma_ps_mo"></span></td>
+							</tr>
+							<tr>
+								<td class="bg-dark text-light">modo intermedio</td>
+								<td><span id="mb_ps_ms"></span></td>
+								<td class="bg-dark text-light">modo intermedio</td>
+								<td><span id="mi_ps_ms"></span></td>
+								<td class="bg-dark text-light">modo intermedio</td>
+								<td><span id="ma_ps_ms"></span></td>
+							</tr>
+							<tr>
+								<td class="bg-dark text-light">modo empotrado</td>
+								<td><span id="mb_ps_md"></span></td>
+								<td class="bg-dark text-light">modo empotrado</td>
+								<td><span id="mi_ps_md"></span></td>
+								<td class="bg-dark text-light">modo empotrado</td>
+								<td><span id="ma_ps_md"></span></td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

@@ -289,6 +289,10 @@
 								<td><input type="radio" name="rtd_valor" value="1.10" id="rtd_f" class="form-control"></td> <!-- vacio -->
 								<td><span id="rtd_resultado"></span></td>
 							</tr>
+							<tr>
+								<td scope="row" colspan="7">Resultado</td>
+								<td class="bg-info"><span id="atributo_resultado"></span></td>
+							</tr>
 						</tbody>
 					</table>
 				</form>
@@ -304,25 +308,31 @@
 						<thead class="thead-dark">
 							<tr><th colspan="7" scope="col" class="text-center">Resultados de modelos</th></tr>
 							<tr>
-								<th scope="col" rowspan="2">Valor</th>
-								<th colspan="2" scope="col">Modelo básico</th>
-								<th colspan="2" scope="col">Modelo intermedio</th>
-								<th colspan="2" scope="col">Modelo empotrado</th>
+								<th scope="col" rowspan="3">Valor</th>
+								<th colspan="3" scope="col">Modelo</th>
 							</tr>
+							<tr><th colspan="3" scope="col">modo</th></tr>
 							<tr>
-								<th scope="col">modo</th>
-								<th scope="col">valor</th>
-								<th scope="col">modo</th>
-								<th scope="col">valor</th>
-								<th scope="col">modo</th>
-								<th scope="col">valor</th>
+								<th>
+									<label>
+										modo organico <input type="radio" name="modo" value="organico" id="modo_organico" class="form-control">
+									</label>
+								</th>
+								<th>
+									<label>
+										modo intermedio <input type="radio" name="modo" value="intermedio" id="modo_intermedio" class="form-control">
+									</label>
+								</th>
+								<th>
+									<label>
+										modo empotrado <input type="radio" name="modo" value="empotrado" id="modo_empotrado" class="form-control">
+									</label>
+								</th>
 							</tr>
 						</thead>
 
 						<tbody class="table-striped">
 							<!--
-								[m]odo [b]asico, [m]odo [i]ntermedio, [m]odo [a]vanzado
-								+
 								mm = esfuerzo
 								ms = meses
 								ps = persona
@@ -331,81 +341,18 @@
 							-->
 							<!-- esfuerzo -->
 							<tr>
-								<td scope="row" rowspan="3">Esfuerzo persona-mes</td>
-								<td class="bg-dark text-light">modo orgánico</td>
-								<td><span id="mb_mm_mo"></span></td>
-								<td class="bg-dark text-light">modo orgánico</td>
-								<td><span id="mi_mm_mo"></span></td>
-								<td class="bg-dark text-light">modo orgánico</td>
-								<td><span id="ma_mm_mo"></span></td>
-							</tr>
-							<tr>
-								<td class="bg-dark text-light">modo intermedio</td>
-								<td><span id="mb_mm_ms"></span></td>
-								<td class="bg-dark text-light">modo intermedio</td>
-								<td><span id="mi_mm_ms"></span></td>
-								<td class="bg-dark text-light">modo intermedio</td>
-								<td><span id="ma_mm_ms"></span></td>
-							</tr>
-							<tr>
-								<td class="bg-dark text-light">modo empotrado</td>
-								<td><span id="mb_mm_md"></span></td>
-								<td class="bg-dark text-light">modo empotrado</td>
-								<td><span id="mi_mm_md"></span></td>
-								<td class="bg-dark text-light">modo empotrado</td>
-								<td><span id="ma_mm_md"></span></td>
+								<td scope="row">Esfuerzo persona-mes</td>
+								<td colspan="3"><span id="mm_resultado"></span></td>
 							</tr>
 							<!-- tiempo -->
 							<tr>
-								<td scope="row" rowspan="3">Esfuerzo persona-mes</td>
-								<td class="bg-dark text-light">modo orgánico</td>
-								<td><span id="mb_ms_mo"></span></td>
-								<td class="bg-dark text-light">modo orgánico</td>
-								<td><span id="mi_ms_mo"></span></td>
-								<td class="bg-dark text-light">modo orgánico</td>
-								<td><span id="ma_ms_mo"></span></td>
-							</tr>
-							<tr>
-								<td class="bg-dark text-light">modo intermedio</td>
-								<td><span id="mb_ms_ms"></span></td>
-								<td class="bg-dark text-light">modo intermedio</td>
-								<td><span id="mi_ms_ms"></span></td>
-								<td class="bg-dark text-light">modo intermedio</td>
-								<td><span id="ma_ms_ms"></span></td>
-							</tr>
-							<tr>
-								<td class="bg-dark text-light">modo empotrado</td>
-								<td><span id="mb_ms_md"></span></td>
-								<td class="bg-dark text-light">modo empotrado</td>
-								<td><span id="mi_ms_md"></span></td>
-								<td class="bg-dark text-light">modo empotrado</td>
-								<td><span id="ma_ms_md"></span></td>
+								<td scope="row">Meses estimados</td>
+								<td colspan="3"><span id="ms_resultado"></span></td>
 							</tr>
 							<!-- personal -->
 							<tr>
-								<td scope="row" rowspan="3">Esfuerzo persona-mes</td>
-								<td class="bg-dark text-light">modo orgánico</td>
-								<td><span id="mb_ps_mo"></span></td>
-								<td class="bg-dark text-light">modo orgánico</td>
-								<td><span id="mi_ps_mo"></span></td>
-								<td class="bg-dark text-light">modo orgánico</td>
-								<td><span id="ma_ps_mo"></span></td>
-							</tr>
-							<tr>
-								<td class="bg-dark text-light">modo intermedio</td>
-								<td><span id="mb_ps_ms"></span></td>
-								<td class="bg-dark text-light">modo intermedio</td>
-								<td><span id="mi_ps_ms"></span></td>
-								<td class="bg-dark text-light">modo intermedio</td>
-								<td><span id="ma_ps_ms"></span></td>
-							</tr>
-							<tr>
-								<td class="bg-dark text-light">modo empotrado</td>
-								<td><span id="mb_ps_md"></span></td>
-								<td class="bg-dark text-light">modo empotrado</td>
-								<td><span id="mi_ps_md"></span></td>
-								<td class="bg-dark text-light">modo empotrado</td>
-								<td><span id="ma_ps_md"></span></td>
+								<td scope="row">Personal necesario</td>
+								<td colspan="3"><span id="ps_resultado"></span></td>
 							</tr>
 						</tbody>
 					</table>

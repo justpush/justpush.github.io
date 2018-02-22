@@ -97,6 +97,17 @@ window.addEventListener("load", function()
 		if (sumatoria != 0)
 			fijarTextoEn("pf_final", sumatoria);
 
+		// calculamos PFA
+		sumatoria = 0;
+		ranges = document.getElementsByName("rating");
+		for (var i = 0; i < ranges.length; i++) {
+			valor = ranges[i].value;
+			valor = parseInt(valor);
+			sumatoria += valor;
+		}
+		fijarTextoEn("pfa_resultado", sumatoria);
+		fijarTextoEn("pfa_final", sumatoria);
+
 		// calculamos cada atributo
 		for (var i=0; i<abreviaturaAtributo.length; i++)
 		{

@@ -13,10 +13,15 @@ var factorPonderado = {
 }
 
 var abreviaturaAtributo = ["fbd", "tbd", "cpj", "rte", "rmv", "vmv", "trp", "qit", "xpa", "ctp", "xpv", "xpl", "tap", "uhs", "rtd"];
-var modos = {
+var modosPijo = {
 	"organico": {"a": 2.4, "b": 1.05, "c": 2.5, "d": 0.38},
 	"intermedio": {"a": 3.0, "b": 1.12, "c": 2.5, "d": 0.35},
 	"empotrado": {"a": 3.6, "b": 1.2, "c": 2.5, "d": 0.33}
+}
+var modosPro = {
+	"organico": {"a": 3.2, "b": 1.05, "c": 2.5, "d": 0.38},
+	"intermedio": {"a": 3.0, "b": 1.12, "c": 2.5, "d": 0.35},
+	"empotrado": {"a": 2.8, "b": 1.2, "c": 2.5, "d": 0.33}
 }
 
 function obtenerValorHorizontalPF(sid, entero=true)
@@ -122,7 +127,13 @@ window.addEventListener("load", function()
 		{
 			if (radios[i].checked)
 			{
-				modo = modos[radios[i].value];
+				// si es básico, usa una tabla de modos,
+				// pero si es intermedio hacia arriba,
+				// usará otra tabla
+				if (i < 1)
+					modo = modosPijo[radios[i].value];
+				else
+					modo = modosPro[radios[i].value];
 				console.log("Modo: " + radios[i].value);
 				break;
 			}
@@ -145,6 +156,7 @@ window.addEventListener("load", function()
 				fijarTextoEn("mm_resultado", esfuerzo);
 				fijarTextoEn("ms_resultado", tiempo);
 				fijarTextoEn("ps_resultado",  personal);
+				// falta estimar costo del proyecto
 			}
 		}
 

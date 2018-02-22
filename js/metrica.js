@@ -94,6 +94,8 @@ window.addEventListener("load", function()
 			sumatoria += valor;
 		}
 		fijarTextoEn("pf_resultado", sumatoria);
+		if (sumatoria != 0)
+			fijarTextoEn("pf_final", sumatoria);
 
 		// calculamos cada atributo
 		for (var i=0; i<abreviaturaAtributo.length; i++)

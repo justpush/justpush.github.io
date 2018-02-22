@@ -93,9 +93,11 @@ window.addEventListener("load", function()
 				valor = 0;
 			sumatoria += valor;
 		}
-		fijarTextoEn("pf_resultado", sumatoria);
-		if (sumatoria != 0)
-			fijarTextoEn("pf_final", sumatoria);
+		// punto de función
+		pf = sumatoria
+		fijarTextoEn("pf_resultado", pf);
+		if (pf != 0)
+			fijarTextoEn("pf_final", pf);
 
 		// calculamos PFA
 		sumatoria = 0;
@@ -105,8 +107,12 @@ window.addEventListener("load", function()
 			valor = parseInt(valor);
 			sumatoria += valor;
 		}
-		fijarTextoEn("pfa_resultado", sumatoria);
-		fijarTextoEn("pfa_final", sumatoria);
+		fijarTextoEn("rating_resultado", sumatoria);
+		// factor de ajuste de complejidad
+		fac = 0.65 + 0.01*sumatoria;
+		// punto de función ajustado
+		pfa = pf * fac;
+		fijarTextoEn("pfa_final", pfa);
 
 		// calculamos cada atributo
 		for (var i=0; i<abreviaturaAtributo.length; i++)

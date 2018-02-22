@@ -19,16 +19,6 @@ var modos = {
 	"empotrado": {"a": 3.6, "b": 1.2, "c": 2.5, "d": 0.33}
 }
 
-function obtenerConteo(sid)
-{
-	id_conteo = sid + "_conteo";
-	conteo = document.getElementById(id_conteo);
-	if (conteo.value == "")
-		return 1;
-	else
-		return parseInt(conteo.value);
-}
-
 function obtenerValorHorizontalPF(sid, entero=true)
 {
 	// obtenemos el id, bueno, lo generamos
@@ -64,19 +54,26 @@ window.addEventListener("load", function()
 		// fijamos valores verticales
 		for (var i=0; i<valorDominio.length; i++)
 		{
-			// obtenemos qué ha marcado
-			valor = obtenerValorHorizontalPF(valorDominio[i]);
-			if (valor == null)
-				continue;
-			// obtenemos el valor de eso que ha marcado
-			valor = factorPonderado[valorDominio[i]][valor - 1];
-			// obtenemos la cantidad o conteo
-			cantidad = obtenerConteo(valorDominio[i]);
-			// multiplicamos y no queremos negativos, eh
-			valor *= Math.abs(cantidad);
-			// mostramos todo
+			valorLineal = 0;
+			id_valor = valorDominio[i] + "_valor";
 			id_resultado = valorDominio[i] + "_resultado";
-			fijarTextoEn(id_resultado, valor.toString());
+			lineaFactores = factorPonderado[valorDominio[i]];
+			// obtenemos valores en la línea de <input>'s
+			valores = document.getElementsByName(id_valor);
+			for (var j=0; j<valores.length; j++)
+			{
+				// obtenemos el valor de un <input>
+				valor = valores[j].value;
+				if (valor != "")
+					valor = parseInt(valor);
+				else
+					valor = 0;
+				valorLineal += lineaFactores[j]*Math.abs(valor);
+			}
+			// mostramos los valores o ignoramos
+			if (valorLineal == 0)
+				continue;
+			fijarTextoEn(id_resultado, valorLineal.toString());
 		}
 
 		// hacemos la sumatoria PF

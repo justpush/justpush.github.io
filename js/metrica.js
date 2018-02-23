@@ -95,6 +95,7 @@ window.addEventListener("load", function()
 		}
 		// punto de función
 		pf = sumatoria
+		console.log("PF = " + pf);
 		fijarTextoEn("pf_resultado", pf);
 		if (pf != 0)
 			fijarTextoEn("pf_final", pf);
@@ -110,8 +111,10 @@ window.addEventListener("load", function()
 		fijarTextoEn("rating_resultado", sumatoria);
 		// factor de ajuste de complejidad
 		fac = 0.65 + 0.01*sumatoria;
+		console.log("FAC = " + fac);
 		// punto de función ajustado
 		pfa = pf * fac;
+		console.log("PFA = " + pfa);
 		fijarTextoEn("pfa_final", pfa);
 
 		// calculamos cada atributo
@@ -137,6 +140,7 @@ window.addEventListener("load", function()
 				valor = 1;
 			productoria *= valor;
 		}
+		console.log("productoria = " + productoria);
 		fijarTextoEn("atributo_resultado", productoria);
 
 		// buscamos el modo seleccionado
@@ -162,13 +166,15 @@ window.addEventListener("load", function()
 		{
 			// calculo de esfuerzo
 			atributo = document.getElementById("atributo_resultado");
-			pf = document.getElementById("pf_resultado");
+			pfa = document.getElementById("pfa_final");
 			if (atributo.innerText != "" && pf.innerText != "")
 			{
 				atributo = parseFloat(atributo.innerText);
-				pf = parseInt(pf.innerText);
-				// formulas
-				esfuerzo = modo["a"]*(Math.pow(pf*53, modo["b"]) / 1000)*atributo; // por ahora, se usa como si fuera java:53
+				pfa = parseInt(pfa.innerText);
+				// fórmulas súperpoderosas
+				sloc = pfa*53;
+				console.log("SLOC = " + sloc);
+				esfuerzo = modo["a"]*(Math.pow(sloc/1000, modo["b"]))*atributo; // por ahora, se usa como si fuera java:53
 				tiempo = modo["c"]*Math.pow(esfuerzo, modo["d"]);
 				personal = esfuerzo/(tiempo ? tiempo != 0 : 1);
 				// mostramos los resultados
@@ -178,6 +184,6 @@ window.addEventListener("load", function()
 				// falta estimar costo del proyecto
 			}
 		}
-
+		console.log("==========================================");
 	}, 2000);
 });

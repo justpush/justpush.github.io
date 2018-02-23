@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
 	<script type="text/javascript" src="../js/jquery.js"></script>
 	<script type="text/javascript" src="../js/bootstrap.js"></script>
-	<script type="text/javascript" src="../js/metrica.js"></script>	
+	<script type="text/javascript" src="../js/metrica.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -41,16 +41,20 @@
 			</div>
 
 			<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+				<hr class="my-4">
+
 				<p>
-					Vamos a calcular:
+					Vamos a calcular los puntos de función:
 				</p>
 
 				<form class="table-responsive">
 					<table class="table table-bordered table-sm">
 						<thead class="thead-dark">
 							<tr>
-								<th scope="col">Variable</th>
-								<th scope="col">Conteo</th>
+								<th rowspan="2" scope="col">Variable</th>
+								<th colspan="4" scope="col" class="text-center">Factor ponderado</th>
+							</tr>
+							<tr>
 								<th scope="col">Simple</th>
 								<th scope="col">Promedio</th>
 								<th scope="col">Complejo</th>
@@ -60,54 +64,176 @@
 						<tbody class="table-striped">
 							<tr>
 								<td scope="row" class="text-center">EE</td>
-								<td><input type="number" name="ee_conteo" id="ee_conteo" class="form-control" value="1" required></td>
-								<td><input type="radio" name="ee_valor" value="1" id="ee_siemple" class="form-control"></td>
-								<td><input type="radio" name="ee_valor" value="2" id="ee_promedio" class="form-control"></td>
-								<td><input type="radio" name="ee_valor" value="3" id="ee_complejo" class="form-control"></td>
+								<td><input type="number" name="ee_valor" id="ee_siemple" class="form-control"></td>
+								<td><input type="number" name="ee_valor" id="ee_promedio" class="form-control"></td>
+								<td><input type="number" name="ee_valor" id="ee_complejo" class="form-control"></td>
 								<td><span id="ee_resultado"></span></td>
 							</tr>
 							<tr>
 								<td scope="row" class="text-center">SE</td>
-								<td><input type="number" name="se_conteo" id="se_conteo" class="form-control" value="1" required></td>
-								<td><input type="radio" name="se_valor" value="1" id="se_siemple" class="form-control"></td>
-								<td><input type="radio" name="se_valor" value="2" id="se_promedio" class="form-control"></td>
-								<td><input type="radio" name="se_valor" value="3" id="se_complejo" class="form-control"></td>
+								<td><input type="number" name="se_valor" id="se_siemple" class="form-control"></td>
+								<td><input type="number" name="se_valor" id="se_promedio" class="form-control"></td>
+								<td><input type="number" name="se_valor" id="se_complejo" class="form-control"></td>
 								<td><span id="se_resultado"></span></td>
 							</tr>
 							<tr>
 								<td scope="row" class="text-center">CE</td>
-								<td><input type="number" name="ce_conteo" id="ce_conteo" class="form-control" value="1" required></td>
-								<td><input type="radio" name="ce_valor" value="1" id="ce_siemple" class="form-control"></td>
-								<td><input type="radio" name="ce_valor" value="2" id="ce_promedio" class="form-control"></td>
-								<td><input type="radio" name="ce_valor" value="3" id="ce_complejo" class="form-control"></td>
+								<td><input type="number" name="ce_valor" id="ce_siemple" class="form-control"></td>
+								<td><input type="number" name="ce_valor" id="ce_promedio" class="form-control"></td>
+								<td><input type="number" name="ce_valor" id="ce_complejo" class="form-control"></td>
 								<td><span id="ce_resultado"></span></td>
 							</tr>
 							<tr>
 								<td scope="row" class="text-center">ALI</td>
-								<td><input type="number" name="ali_conteo" id="ali_conteo" class="form-control" value="1" required></td>
-								<td><input type="radio" name="ali_valor" value="1" id="ali_siemple" class="form-control"></td>
-								<td><input type="radio" name="ali_valor" value="2" id="ali_promedio" class="form-control"></td>
-								<td><input type="radio" name="ali_valor" value="3" id="ali_complejo" class="form-control"></td>
+								<td><input type="number" name="ali_valor" id="ali_siemple" class="form-control"></td>
+								<td><input type="number" name="ali_valor" id="ali_promedio" class="form-control"></td>
+								<td><input type="number" name="ali_valor" id="ali_complejo" class="form-control"></td>
 								<td><span id="ali_resultado"></span></td>
 							</tr>
 							<tr>
 								<td scope="row" class="text-center">AIE</td>
-								<td><input type="number" name="aie_conteo" id="aie_conteo" class="form-control" value="1" required></td>
-								<td><input type="radio" name="aie_valor" value="1" id="aie_siemple" class="form-control"></td>
-								<td><input type="radio" name="aie_valor" value="2" id="aie_promedio" class="form-control"></td>
-								<td><input type="radio" name="aie_valor" value="3" id="aie_complejo" class="form-control"></td>
+								<td><input type="number" name="aie_valor" id="aie_siemple" class="form-control"></td>
+								<td><input type="number" name="aie_valor" id="aie_promedio" class="form-control"></td>
+								<td><input type="number" name="aie_valor" id="aie_complejo" class="form-control"></td>
 								<td><span id="aie_resultado"></span></td>
 							</tr>
 							<tr>
-								<td cope="row" class="text-center" colspan="5">Resultado</td>
+								<td cope="row" class="text-center" colspan="4">Resultado</td>
 								<td class="bg-info"><span id="pf_resultado"></span></td>
 							</tr>
 						</tbody>
 					</table>
 				</form>
+				<p>El resultado del calculo de punto de función es: <span class="font-weight-bold" id="pf_final">no definido aún</span>.</p>
 			</div>
 
 			<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+				<hr class="my-4">
+
+				<p>
+					Vamos a tomar algunas caracteristicas no funcionales para ajustar el valor del punto de función:
+				</p>
+
+				<form class="table-responsive">
+					<table class="table table-bordered table-sm">
+						<thead class="thead-dark">
+							<tr>
+								<td scope="col"></td>
+								<td scope="col">Factores ambientales</td>
+								<td scope="col">Valorización</td>
+							</tr>
+						</thead>
+						<tbody class="table-striped">
+							<tr>
+								<td scope="row">1</td>
+								<td>¿Se requiere comunicación de datos?</td>
+								<td>
+									<input type="range" name="rating" min="0" max="5" step="1" value="0">
+								</td>
+							</tr>
+							<tr>
+								<td scope="row">2</td>
+								<td>¿Existen funciones o procedimientos distribuidos?</td>
+								<td>
+									<input type="range" name="rating" min="0" max="5" step="1" value="0">
+								</td>
+							</tr>
+							<tr>
+								<td scope="row">3</td>
+								<td>¿Es crítico el rendimiento?</td>
+								<td>
+									<input type="range" name="rating" min="0" max="5" step="1" value="0">
+								</td>
+							</tr>
+							<tr>
+								<td scope="row">4</td>
+								<td>¿Se ejecutará el sistema en un entorno operativo existente y fuertemente utilizado? ¿Hay restricciones de plataforma?</td>
+								<td>
+									<input type="range" name="rating" min="0" max="5" step="1" value="0">
+								</td>
+							</tr>
+							<tr>
+								<td scope="row">5</td>
+								<td>¿El sistema tendrá una carga transaccional alta o baja?</td>
+								<td>
+									<input type="range" name="rating" min="0" max="5" step="1" value="0">
+								</td>
+							</tr>
+							<tr>
+								<td scope="row">6</td>
+								<td>¿Nivel de disponibilidad?</td>
+								<td>
+									<input type="range" name="rating" min="0" max="5" step="1" value="0">
+								</td>
+							</tr>
+							<tr>
+								<td scope="row">7</td>
+								<td>¿Eficiencia del usuario final requerida (usabilidad)?</td>
+								<td>
+									<input type="range" name="rating" min="0" max="5" step="1" value="0">
+								</td>
+							</tr>
+							<tr>
+								<td scope="row">8</td>
+								<td>¿Actualización en línea?</td>
+								<td>
+									<input type="range" name="rating" min="0" max="5" step="1" value="0">
+								</td>
+							</tr>
+							<tr>
+								<td scope="row">9</td>
+								<td>¿Complejidad del procesamiento?</td>
+								<td>
+									<input type="range" name="rating" min="0" max="5" step="1" value="0">
+								</td>
+							</tr>
+							<tr>
+								<td scope="row">10</td>
+								<td>¿El sistema debe estar diseñado e implementado para ser reutilizable?</td>
+								<td>
+									<input type="range" name="rating" min="0" max="5" step="1" value="0">
+								</td>
+							</tr>
+							<tr>
+								<td scope="row">11</td>
+								<td>¿El sistema debe ser diseñado para ser fácil de instalar y de portar?</td>
+								<td>
+									<input type="range" name="rating" min="0" max="5" step="1" value="0">
+								</td>
+							</tr>
+							<tr>
+								<td scope="row">12</td>
+								<td>¿Facilidad de uso?</td>
+								<td>
+									<input type="range" name="rating" min="0" max="5" step="1" value="0">
+								</td>
+							</tr>
+							<tr>
+								<td scope="row">13</td>
+								<td>¿El sistema debe soportar múltiples instalaciones en diferentes organizaciones?</td>
+								<td>
+									<input type="range" name="rating" min="0" max="5" step="1" value="0">
+								</td>
+							</tr>
+							<tr>
+								<td scope="row">14</td>
+								<td>¿El sistema debe estar diseñado e implantado para facilitar cambios?</td>
+								<td>
+									<input type="range" name="rating" min="0" max="5" step="1" value="0">
+								</td>
+							</tr>
+							<tr>
+								<td scope="row" colspan="2" class="text-center">Resultado</td>
+								<td class="bg-info"><span id="rating_resultado"></span></td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+				<p>El resultado del punto de función ajustado es: <span class="font-weight-bold" id="pfa_final">0</span>.</p>
+			</div>
+
+			<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+				<hr class="my-4">
 				<p>
 					Datos necesarios para aplicar <a href="https://es.wikipedia.org/wiki/COCOMO" target="fuente">COCOMO</a>:
 				</p>
@@ -292,7 +418,7 @@
 								<td><span id="rtd_resultado"></span></td>
 							</tr>
 							<tr>
-								<td scope="row" colspan="7">Resultado</td>
+								<td scope="row" colspan="7" class="text-center">Resultado</td>
 								<td class="bg-info"><span id="atributo_resultado"></span></td>
 							</tr>
 						</tbody>

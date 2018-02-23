@@ -13,20 +13,15 @@ var factorPonderado = {
 }
 
 var abreviaturaAtributo = ["fbd", "tbd", "cpj", "rte", "rmv", "vmv", "trp", "qit", "xpa", "ctp", "xpv", "xpl", "tap", "uhs", "rtd"];
-var modos = {
+var modosPijo = {
 	"organico": {"a": 2.4, "b": 1.05, "c": 2.5, "d": 0.38},
 	"intermedio": {"a": 3.0, "b": 1.12, "c": 2.5, "d": 0.35},
 	"empotrado": {"a": 3.6, "b": 1.2, "c": 2.5, "d": 0.33}
 }
-
-function obtenerConteo(sid)
-{
-	id_conteo = sid + "_conteo";
-	conteo = document.getElementById(id_conteo);
-	if (conteo.value == "")
-		return 1;
-	else
-		return parseInt(conteo.value);
+var modosPro = {
+	"organico": {"a": 3.2, "b": 1.05, "c": 2.5, "d": 0.38},
+	"intermedio": {"a": 3.0, "b": 1.12, "c": 2.5, "d": 0.35},
+	"empotrado": {"a": 2.8, "b": 1.2, "c": 2.5, "d": 0.33}
 }
 
 function obtenerValorHorizontalPF(sid, entero=true)
@@ -64,19 +59,26 @@ window.addEventListener("load", function()
 		// fijamos valores verticales
 		for (var i=0; i<valorDominio.length; i++)
 		{
-			// obtenemos qué ha marcado
-			valor = obtenerValorHorizontalPF(valorDominio[i]);
-			if (valor == null)
-				continue;
-			// obtenemos el valor de eso que ha marcado
-			valor = factorPonderado[valorDominio[i]][valor - 1];
-			// obtenemos la cantidad o conteo
-			cantidad = obtenerConteo(valorDominio[i]);
-			// multiplicamos y no queremos negativos, eh
-			valor *= Math.abs(cantidad);
-			// mostramos todo
+			valorLineal = 0;
+			id_valor = valorDominio[i] + "_valor";
 			id_resultado = valorDominio[i] + "_resultado";
-			fijarTextoEn(id_resultado, valor.toString());
+			lineaFactores = factorPonderado[valorDominio[i]];
+			// obtenemos valores en la línea de <input>'s
+			valores = document.getElementsByName(id_valor);
+			for (var j=0; j<valores.length; j++)
+			{
+				// obtenemos el valor de un <input>
+				valor = valores[j].value;
+				if (valor != "")
+					valor = parseInt(valor);
+				else
+					valor = 0;
+				valorLineal += lineaFactores[j]*Math.abs(valor);
+			}
+			// mostramos los valores o ignoramos
+			if (valorLineal == 0)
+				continue;
+			fijarTextoEn(id_resultado, valorLineal.toString());
 		}
 
 		// hacemos la sumatoria PF
@@ -91,7 +93,29 @@ window.addEventListener("load", function()
 				valor = 0;
 			sumatoria += valor;
 		}
-		fijarTextoEn("pf_resultado", sumatoria);
+		// punto de función
+		pf = sumatoria
+		console.log("PF = " + pf);
+		fijarTextoEn("pf_resultado", pf);
+		if (pf != 0)
+			fijarTextoEn("pf_final", pf);
+
+		// calculamos PFA
+		sumatoria = 0;
+		ranges = document.getElementsByName("rating");
+		for (var i = 0; i < ranges.length; i++) {
+			valor = ranges[i].value;
+			valor = parseInt(valor);
+			sumatoria += valor;
+		}
+		fijarTextoEn("rating_resultado", sumatoria);
+		// factor de ajuste de complejidad
+		fac = 0.65 + 0.01*sumatoria;
+		console.log("FAC = " + fac);
+		// punto de función ajustado
+		pfa = pf * fac;
+		console.log("PFA = " + pfa);
+		fijarTextoEn("pfa_final", pfa);
 
 		// calculamos cada atributo
 		for (var i=0; i<abreviaturaAtributo.length; i++)
@@ -116,6 +140,7 @@ window.addEventListener("load", function()
 				valor = 1;
 			productoria *= valor;
 		}
+		console.log("productoria = " + productoria);
 		fijarTextoEn("atributo_resultado", productoria);
 
 		// buscamos el modo seleccionado
@@ -125,7 +150,13 @@ window.addEventListener("load", function()
 		{
 			if (radios[i].checked)
 			{
-				modo = modos[radios[i].value];
+				// si es básico, usa una tabla de modos,
+				// pero si es intermedio hacia arriba,
+				// usará otra tabla
+				if (i < 1)
+					modo = modosPijo[radios[i].value];
+				else
+					modo = modosPro[radios[i].value];
 				console.log("Modo: " + radios[i].value);
 				break;
 			}
@@ -135,21 +166,24 @@ window.addEventListener("load", function()
 		{
 			// calculo de esfuerzo
 			atributo = document.getElementById("atributo_resultado");
-			pf = document.getElementById("pf_resultado");
+			pfa = document.getElementById("pfa_final");
 			if (atributo.innerText != "" && pf.innerText != "")
 			{
 				atributo = parseFloat(atributo.innerText);
-				pf = parseInt(pf.innerText);
-				// formulas
-				esfuerzo = modo["a"]*(Math.pow(pf*53, modo["b"]) / 1000)*atributo; // por ahora, se usa como si fuera java:53
+				pfa = parseInt(pfa.innerText);
+				// fórmulas súperpoderosas
+				sloc = pfa*53;
+				console.log("SLOC = " + sloc);
+				esfuerzo = modo["a"]*(Math.pow(sloc/1000, modo["b"]))*atributo; // por ahora, se usa como si fuera java:53
 				tiempo = modo["c"]*Math.pow(esfuerzo, modo["d"]);
 				personal = esfuerzo/(tiempo ? tiempo != 0 : 1);
 				// mostramos los resultados
 				fijarTextoEn("mm_resultado", esfuerzo);
 				fijarTextoEn("ms_resultado", tiempo);
 				fijarTextoEn("ps_resultado",  personal);
+				// falta estimar costo del proyecto
 			}
 		}
-
+		console.log("==========================================");
 	}, 2000);
 });
